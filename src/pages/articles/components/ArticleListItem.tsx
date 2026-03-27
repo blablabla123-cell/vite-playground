@@ -1,24 +1,24 @@
 import type { Article } from '../../../types';
 
-interface ArticleListItemProps {
+type ArticleListItemProps = {
   article: Article;
   isSelected: boolean;
-  onArticleClick: () => void;
-}
+  onArticleSelect: (articleId: number) => void;
+};
 
-export function ArticleListItem({
-  article,
-  isSelected,
-  onArticleClick,
-}: ArticleListItemProps) {
+export function ArticleListItem(props: ArticleListItemProps) {
+  const onArticleSelect = (): void => {
+    props.onArticleSelect(props.article.id);
+  };
+
   return (
     <li
-      onClick={onArticleClick}
+      onClick={onArticleSelect}
       style={{
-        border: isSelected ? '1px solid green' : 'none',
+        border: props.isSelected ? '1px solid green' : 'none',
       }}
     >
-      <h5>{article.title}</h5>
+      <h5>{props.article.title}</h5>
     </li>
   );
 }

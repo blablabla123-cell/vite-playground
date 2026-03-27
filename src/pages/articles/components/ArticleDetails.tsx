@@ -1,29 +1,11 @@
-import { useEffect, useState } from 'react';
-import type { Article } from '../../../types';
-import { getArticles } from '../../../api/ArticlesApi';
+import { useArticle } from '../../../domain/useArticle';
 
-interface ArticleDetailsProp {
-  selectedArticleId: number | null;
-}
+type ArticleDetailsProp = {
+  articleId: number | null;
+};
 
-export function ArticleDetails({ selectedArticleId }: ArticleDetailsProp) {
-  const [article, setArticle] = useState<Article | null>(null);
-
-  useEffect(() => {
-    if (!selectedArticleId) {
-      return;
-    }
-
-    getArticles()
-      .then(({ data }) => {
-        const article = data.find((a) => a.id === selectedArticleId);
-
-        if (article) {
-          return setArticle(article);
-        }
-      })
-      .catch((e) => console.error(e));
-  }, [selectedArticleId]);
+export function ArticleDetails(props: ArticleDetailsProp) {
+  const article = useArticle(props.articleId);
 
   return (
     <div
@@ -34,15 +16,15 @@ export function ArticleDetails({ selectedArticleId }: ArticleDetailsProp) {
     >
       <h2>Summary</h2>
 
-      {!article && selectedArticleId && <h3>Loading ...</h3>}
+      {!article && props.articleId && <h3>Loading ...</h3>}
 
-      {selectedArticleId && article && selectedArticleId == article.id && (
+      {props.articleId && article && props.articleId == article.id && (
         <>
           <hr />
           <p>{article?.summary}</p>
         </>
       )}
-      {article && selectedArticleId && article.id !== selectedArticleId && (
+      {article && props.articleId && article.id !== props.articleId && (
         <p>Loading ... </p>
       )}
     </div>

@@ -1,25 +1,19 @@
-import { Fragment, useEffect, useState } from 'react';
-import type { Article } from '../../../types';
+import { Fragment } from 'react';
 import { ArticleListItem } from './ArticleListItem';
-import { getArticles } from '../../../api/ArticlesApi';
 import { ArticleDetails } from './ArticleDetails';
+import { useArticles } from '../../../domain/useArticles';
 
-interface ArticlesListProps {
+type ArticlesListProps = {
   selectedArticleId: number | null;
-  onArticleClick: (article: Article) => void;
-}
+  onArticleSelect: (id: number) => void;
+};
 
-export function ArticlesList({
-  selectedArticleId,
-  onArticleClick,
-}: ArticlesListProps) {
-  const [articles, setArticles] = useState<Article[] | null>(null);
+export function ArticlesList(props: ArticlesListProps) {
+  const articles = useArticles();
 
-  useEffect(() => {
-    getArticles()
-      .then(({ data }) => setArticles(data))
-      .catch((e) => console.error(e));
-  }, []);
+  const onArticleSelected = (articleId: number): void => {
+    props.onArticleSelect(articleId);
+  };
 
   return (
     <>
@@ -41,12 +35,13 @@ export function ArticlesList({
               <Fragment key={article.id}>
                 <ArticleListItem
                   article={article}
-                  isSelected={selectedArticleId === article.id}
-                  onArticleClick={() => onArticleClick(article)}
+                  isSelected={props.selectedArticleId === article.id}
+                  onArticleSelect={onArticleSelected}
                 />
-                {selectedArticleId && selectedArticleId == article.id && (
-                  <ArticleDetails selectedArticleId={selectedArticleId} />
-                )}
+                {props.selectedArticleId &&
+                  props.selectedArticleId == article.id && (
+                    <ArticleDetails articleId={props.selectedArticleId} />
+                  )}
               </Fragment>
             ))}
           </ul>
