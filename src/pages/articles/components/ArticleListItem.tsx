@@ -1,4 +1,6 @@
 import type { Article } from '../../../types';
+import styles from './ArticleListItem.module.css';
+import clsx from 'clsx';
 
 type ArticleListItemProps = {
   article: Article;
@@ -11,13 +13,13 @@ export function ArticleListItem(props: ArticleListItemProps) {
     props.onArticleSelect(props.article.id);
   };
 
+  const classNames = clsx({
+    [styles.articlesListItem]: true,
+    [styles.selected]: props.isSelected,
+  });
+
   return (
-    <li
-      onClick={onArticleSelect}
-      style={{
-        border: props.isSelected ? '1px solid green' : 'none',
-      }}
-    >
+    <li onClick={onArticleSelect} className={classNames}>
       <h5>{props.article.title}</h5>
     </li>
   );

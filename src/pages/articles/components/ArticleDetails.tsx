@@ -1,4 +1,5 @@
 import { useArticle } from '../../../domain/useArticle';
+import styles from './ArticleDetails.module.css';
 
 type ArticleDetailsProp = {
   articleId: number | null;
@@ -8,12 +9,7 @@ export function ArticleDetails(props: ArticleDetailsProp) {
   const article = useArticle(props.articleId);
 
   return (
-    <div
-      style={{
-        border: '1px solid cyan',
-        padding: '12px',
-      }}
-    >
+    <div className={styles.articleDetails}>
       <h2>Summary</h2>
 
       {!article && props.articleId && <h3>Loading ...</h3>}

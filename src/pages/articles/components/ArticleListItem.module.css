@@ -1,0 +1,8 @@
+.articlesListItem {
+    margin: 4px;
+}
+
+.articlesListItem.selected {
+    border: 1px solid green;
+    border-radius: 12px;
+}
