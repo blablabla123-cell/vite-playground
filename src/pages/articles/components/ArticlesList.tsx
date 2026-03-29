@@ -9,7 +9,7 @@ type ArticlesListProps = {
   onArticleSelect: (id: number) => void;
 };
 
-export function ArticlesList(props: ArticlesListProps) {
+export function ArticlesList(props: Readonly<ArticlesListProps>) {
   const articles = useArticles();
 
   const onArticleSelected = (articleId: number): void => {

@@ -3,12 +3,12 @@ import styles from './ArticleListItem.module.css';
 import clsx from 'clsx';
 
 type ArticleListItemProps = {
-  article: Article;
-  isSelected: boolean;
-  onArticleSelect: (articleId: number) => void;
+   article: Article;
+   isSelected: boolean;
+   onArticleSelect: (articleId: number) => void;
 };
 
-export function ArticleListItem(props: ArticleListItemProps) {
+export function ArticleListItem(props: Readonly<ArticleListItemProps>) {
   const onArticleSelect = (): void => {
     props.onArticleSelect(props.article.id);
   };

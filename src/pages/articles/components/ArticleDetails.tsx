@@ -5,7 +5,7 @@ type ArticleDetailsProp = {
   articleId: number | null;
 };
 
-export function ArticleDetails(props: ArticleDetailsProp) {
+export function ArticleDetails(props: Readonly<ArticleDetailsProp>) {
   const article = useArticle(props.articleId);
 
   return (
