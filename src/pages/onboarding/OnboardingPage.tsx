@@ -1,66 +1,84 @@
-import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, {  useEffect, useRef } from 'react';
+import { useReducer } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+type Currency = 'USD' | 'EUR' | 'RUB';
+
+type State = {
+  name: string;
+  currency: Currency;
+};
+
+type Action =
+  | { type: 'SET_NAME'; payload: string }
+  | { type: 'SET_CURRENCY'; payload: Currency };
+
+function refucer(state: State, action: Action): State {
+  switch (action.type) {
+    case 'SET_NAME':
+      return { ...state, name: action.payload };
+    case 'SET_CURRENCY':
+      return { ...state, currency: action.payload };
+    default:
+      return state;
+  }
+}
+
+const initialState: State = {
+  name: '',
+  currency: 'RUB',
+};
 
 export function OnboardingPage() {
-  const [count, setCount] = useState(0);
-  const [lastLogin] = useState(new Date());
-  const [cartTotal] = useState(123.45);
-  const [user] = useState({ name: 'Alex', gender: 'male' });
+  const intl = useIntl();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [state, dispatch] = useReducer(refucer, initialState);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
-    <main
-      style={{
-        maxWidth: 600,
-        margin: '2rem auto',
-        fontFamily: 'system-ui, sans-serif',
-      }}
-    >
-      <h1>
-        <FormattedMessage id='app.title' />
-      </h1>
+    <div>
+      <h3>
+        <FormattedMessage id={'onboarding.introduction'} />
+      </h3>
       <p>
-        <FormattedMessage id='app.description' />
+        <FormattedMessage id={'onboarding.name.request'} />
       </p>
-      <section
-        style={{
-          marginTop: '2rem',
-        }}
+      <br />
+      <input
+        ref={inputRef}
+        type='text'
+        placeholder={intl.formatMessage({ id: 'input.placeholder.name' })}
+        value={state.name}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch({ type: 'SET_NAME', payload: e.target.value })
+        }
+      />
+      <br />
+      <br />
+      <p>
+        <FormattedMessage id={'onboarding.currency.request'} />
+      </p>
+      <br />
+      <select
+        value={state.currency}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          dispatch({
+            type: 'SET_CURRENCY',
+            payload: e.target.value as Currency,
+          })
+        }
       >
-        <p>
-          <FormattedMessage id='app.notifications' values={{ count }} />
-        </p>
-        <div
-          style={{
-            display: 'flex',
-            gap: '0.5rem',
-            marginTop: '0.5rem',
-          }}
-        >
-          <button type='button' onClick={() => setCount(1)}>
-            =1
-          </button>
-          <button type='button' onClick={() => setCount((prev) => prev + 1)}>
-            +1
-          </button>
-        </div>
-      </section>
-      <section style={{ marginTop: '2rem' }}>
-        <p>
-          <FormattedMessage id='app.lastLogin' values={{ ts: lastLogin }} />
-        </p>
-      </section>
-      <section style={{ marginTop: '2rem' }}>
-        <p>
-          <FormattedMessage id='app.cartTotal' values={{ total: cartTotal }} />
-        </p>
-      </section>
-      <section style={{ marginTop: '2rem' }}>
-        <p>
-          <FormattedMessage
-            id='app.userAction'
-            values={{ name: user.name, gender: user.gender }}
-          />
-        </p>
-      </section>
-    </main>
+        <option value='USD'>USD</option>
+        <option value='EUR'>EUR</option>
+        <option value='RUB'>RUB</option>
+      </select>
+    </div>
   );
 }

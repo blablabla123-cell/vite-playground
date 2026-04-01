@@ -1,8 +1,5 @@
 {
-  "app.title": "Демонстрация React-intl",
-  "app.description": "Это небольшая демонстрация того, как локализовать приложение React с помощью react-intl.",
-  "app.notifications": "{count, plural, =0 {У вас нет уведомлений} one {У вас # новое уведомление} few {У вас # новых уведомления} many {У вас # новых уведомлений} other {У вас # новых уведомлений}}",
-  "app.lastLogin": "Последний вход: {ts, date, medium} в {ts, time, short}",
-  "app.cartTotal": "Итого в корзине: {total, number, ::currency/USD}",
-  "app.userAction": "{gender, select, female {{name} вошла, она обновила свой профиль.} male {{name} вошел, он обновил свой профиль.} other {{name} вошел, они обновили свой профиль.}}"
+    "onboarding.introduction": "Добро пожаловать на страницу онбординга!",
+    "onboarding.name.request": "Давайте узнаем вас получше. Как вас зовут?",
+    "onboarding.currency.request": "Какую валюту вы используете для своих транзакций?"
 }

@@ -8,6 +8,7 @@ import {
   storeLocale,
 } from '../i18n/locales';
 import { OnboardingPage } from '../pages/onboarding/OnboardingPage';
+// import { ReactIntlExamplePage } from '../pages/onboarding/ReactInltExamplePage';
 
 // import { App } from './App.tsx';
 
@@ -26,7 +27,7 @@ export function Root() {
     error: null,
   }));
 
-  const { locale, messages, loading, error } = state;
+  const { locale, messages, loading, error }: LocaleState = state;
 
   const dir = getDirection(locale);
 
@@ -120,13 +121,15 @@ export function Root() {
       <div
         style={{
           maxWidth: 600,
-          margin: '2rem auto',
+          // margin: '2rem auto',
           fontFamily: 'system-ui, sans-serif',
         }}
-      ></div>
-      {/* <App /> */}
-      <LanguageSwitcher locale={locale} onChange={handleLocaleChange} />
-      <OnboardingPage />
+      >
+        {/* <App /> */}
+        <LanguageSwitcher locale={locale} onChange={handleLocaleChange} />
+        <OnboardingPage />
+        {/* <ReactIntlExamplePage /> */}
+      </div>
     </IntlProvider>
   );
 }

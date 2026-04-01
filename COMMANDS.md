@@ -15,3 +15,22 @@ npm install clsx
 ```
 npm install react-intl
 ```
+
+`Tailwind css`
+
+```
+npm install tailwindcss @tailwindcss/vite
+```
+
+`Tanstack, React Query`
+
+```
+npm i @tanstack/react-query
+```
+
+`Tanstack, React location`
+
+```
+npm i @tanstack/react-router
+npm i @tanstack/react-router-devtools
+```

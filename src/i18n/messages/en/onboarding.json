@@ -1,8 +1,5 @@
 {
-  "app.title": "React-intl demo",
-  "app.description": "This is a small demo showing how to localize a React app with react-intl.",
-  "app.notifications": "{count, plural, =0 {You have no notifications} one {You have # new notification} other {You have # notifications}}",
-  "app.lastLogin": "Last login: {ts, date, medium} at {ts, time, short}",
-  "app.cartTotal": "Cart total: {total, number, ::currency/USD}",
-  "app.userAction": "{gender, select, female {{name} logged in, she updated her profile.} male {{name} logged in, he updated his profile.} other {{name} logged in, they updated their profile.}}"
+    "onboarding.introduction": "Welcome to the onboarding page!",
+    "onboarding.name.request": "Let's get to know you better. What is your name?",
+    "onboarding.currency.request": "What currency do you use for your transactions?"
 }
